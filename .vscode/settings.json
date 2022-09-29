@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "BankDBContext",
+            "database": "Bank",
+            "username": "root",
+            "password": ""
+        }
+    ],
+    "dataworkspace.excludedProjects": [
+        "BankDBContext/BankDBContext.sqlproj"
+    ]
+}
