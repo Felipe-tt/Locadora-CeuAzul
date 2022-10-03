@@ -24,8 +24,7 @@ class Program {
         C.standardWindow(userOption, loginOptions);
         while (userOption != 0) {
             try {
-                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options,
-                            JOptionPane.QUESTION_MESSAGE));
+                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options));
                 if (userOption == 0)
                     continue;
                 switch (userOption) {
