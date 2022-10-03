@@ -2,29 +2,30 @@ package MVCPresentationLayer;
 import javax.swing.JOptionPane;
 
 import MVCPresentationLayer.Controllers.ClientController;
-import MVCPresentationLayer.Views.StandardWindow;
 
 class Program {
     public static void main(String[] args) {
-        
-        
         ClientController C = new ClientController();
+        String loginOptions = "Escolha uma opção\n\n" +
+                              "1 - Registre-se\n" +
+                              "2 - Login\n" +
+                              "0 - Sair\n\n";
         int userOption = 1;
         String Options = "Programa de Conta Corrente\n\n" +
-                "1 - Depositar Valor\n" +
-                "2 - Sacar Valor\n" +
-                "3 - Consultar Saldo\n" +
-                "4 - Listar Cliente\n" +
-                "5 - Configurações\n" +
-                "6 - Voltar\n" +
-                "0 - Finalizar\n\n" +
-                "Digite a opção desejada:\n";
+                         "1 - Depositar Valor\n" +
+                         "2 - Sacar Valor\n" +
+                         "3 - Consultar Saldo\n" +
+                         "4 - Listar Cliente\n" +
+                         "5 - Configurações\n" +
+                         "6 - Voltar\n" +
+                         "0 - Finalizar\n\n" +
+                         "Digite a opção desejada:\n";
 
-        StandardWindow.show(userOption);
+        C.standardWindow(userOption, loginOptions);
         while (userOption != 0) {
             try {
                 userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options,
-                        "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
+                            JOptionPane.QUESTION_MESSAGE));
                 if (userOption == 0)
                     continue;
                 switch (userOption) {
@@ -44,7 +45,7 @@ class Program {
                         C.userConfig();
                         break;
                     case 6:
-                        StandardWindow.show(userOption);
+                        C.standardWindow(userOption, Options);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,

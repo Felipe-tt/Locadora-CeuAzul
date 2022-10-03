@@ -15,7 +15,7 @@ import Service.Verification.Verificator;
 public class ClientController {
     Client client = new Client();
 
-    private void setVariables(int ID) {
+    public void setVariables(int ID) {
         client.Name = Get.Row("Name", ID);
         client.CPF = Get.Row("CPF", ID);
         client.Email = Get.Row("Email", ID);
@@ -25,7 +25,7 @@ public class ClientController {
         client.ID = ID;
     }
 
-    private void resetVariables() {
+    public void resetVariables() {
         client.Name = "";
         client.CPF = "";
         client.Email = "";
@@ -35,14 +35,14 @@ public class ClientController {
     }
 
     public void userLogin() {
-        boolean stop = false;
+        boolean stop = false;   
         while (!stop) {
             String loginEmail = JOptionPane.showInputDialog("Email do cliente: ");
             client.ID = client.Email.indexOf(loginEmail);
             int ID = GetByID.Client(loginEmail, "email");
             if (ID != -1 && !Validator.isNullOrBlank(loginEmail)) {
-                while (true) {
-                    if (Verificator.Password(Login.show(), ID)) {
+            while (true) {
+                        if (Verificator.Password(Login.show(), ID)) {
                         stop = true;
                         setVariables(ID);
                         break;
@@ -62,7 +62,6 @@ public class ClientController {
         try {
             MySqlConnection dbl = new MySqlConnection();
             dbl.OpenDatabase();
-            resetVariables();
             while (!Validator.isFullName(client.Name)) {
                 client.Name = JOptionPane.showInputDialog("Digite seu nome: ");
             }
@@ -157,5 +156,26 @@ public class ClientController {
 
     public void userConfig() {
         Config.show();
+    }
+
+    public void standardWindow(int userLoginOption, String loginOptions) {
+        while (userLoginOption != 2) {
+            userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
+                    "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
+            if (userLoginOption == 0)
+                System.exit(0);
+            switch (userLoginOption) {
+                case 1:
+                    userRegister();
+                    break;
+                case 2:
+                    userLogin();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null,
+                            "Opção Inválida.\nSelecione uma opção do Menu",
+                            "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }

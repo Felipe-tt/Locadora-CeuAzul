@@ -17,7 +17,7 @@ public class MySqlConnection {
 
     public void OpenDatabase(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             dbconn = DriverManager.getConnection(URL);
             System.out.println("Successfully connected to: "+ URL);
             sqlmgr = dbconn.createStatement();
