@@ -23,15 +23,16 @@ public class Verificator {
             java.sql.ResultSet rs;
             rs = st.executeQuery(
                     "SELECT " + ColumnName + " FROM clients WHERE clients." + ColumnName + " = '" + Entity + "'");
-            rs.next();
-            String rsEntity = rs.getString("" + ColumnName + "");
-            // ArrayList<String> Array = (ArrayList<String>) ((ResultSet)
-            // st).getArray("'"+ColumnName+"'");
-            if (rsEntity.equals(Entity)) {
-                // "'"+Entity+"'"
-                JOptionPane.showMessageDialog(null, "Já existe uma conta com esse " + ColumnName + "!", "Erro",
-                        JOptionPane.PLAIN_MESSAGE);
-                return true;
+            if (rs.next()) {
+                String rsEntity = rs.getString("" + ColumnName + "");
+                // ArrayList<String> Array = (ArrayList<String>) ((ResultSet)
+                // st).getArray("'"+ColumnName+"'");
+                if (rsEntity.equals(Entity)) {
+                    // "'"+Entity+"'"
+                    JOptionPane.showMessageDialog(null, "Já existe uma conta com esse " + ColumnName + "!", "Erro",
+                            JOptionPane.PLAIN_MESSAGE);
+                    return true;
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex);

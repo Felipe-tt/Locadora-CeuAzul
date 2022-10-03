@@ -1,10 +1,12 @@
 package MVCPresentationLayer.Controllers;
+
 import javax.swing.JOptionPane;
 
 import DataInfraestructure.Get;
 import DataInfraestructure.GetByID;
 import DataInfraestructure.Set;
 import Domain.Client;
+import MVCPresentationLayer.Views.Config;
 import MVCPresentationLayer.Views.Login;
 import DataInfraestructure.MySqlConnection;
 import Service.Validations.*;
@@ -23,15 +25,24 @@ public class ClientController {
         client.ID = ID;
     }
 
-    void userLogin() {
-        boolean stop = false;   
+    private void resetVariables() {
+        client.Name = "";
+        client.CPF = "";
+        client.Email = "";
+        client.Password = "";
+        client.Type = "";
+        client.Balance = 0.0;
+    }
+
+    public void userLogin() {
+        boolean stop = false;
         while (!stop) {
             String loginEmail = JOptionPane.showInputDialog("Email do cliente: ");
             client.ID = client.Email.indexOf(loginEmail);
             int ID = GetByID.Client(loginEmail, "email");
             if (ID != -1 && !Validator.isNullOrBlank(loginEmail)) {
-            while (true) {
-                        if (Verificator.Password(Login.show(), ID)) {
+                while (true) {
+                    if (Verificator.Password(Login.show(), ID)) {
                         stop = true;
                         setVariables(ID);
                         break;
@@ -47,20 +58,20 @@ public class ClientController {
         }
     }
 
-    private void userRegister() {
+    public void userRegister() {
         try {
             MySqlConnection dbl = new MySqlConnection();
             dbl.OpenDatabase();
-            // setVariables();
+            resetVariables();
             while (!Validator.isFullName(client.Name)) {
                 client.Name = JOptionPane.showInputDialog("Digite seu nome: ");
             }
-            
+
             while (!Validator.isCPF(client.CPF)) {
                 while (true) {
                     String userCPF = JOptionPane.showInputDialog("Digite seu CPF: ");
                     if (!Verificator.Exists(userCPF, "CPF")) {
-                        client.CPF =  userCPF;
+                        client.CPF = userCPF;
                         break;
                     }
                 }
@@ -81,15 +92,15 @@ public class ClientController {
             }
 
             while (!Validator.isType(client.Type)) {
-                client.Type = JOptionPane.showInputDialog("Tipo da Conta: (  Corrent  e (C) / Poupança (P)  )");
+                client.Type = JOptionPane.showInputDialog("Tipo da Conta: (  Corrente (C) / Poupança (P)  )");
             }
             client.Type = Validator.toType(client.Type);
-            dbl.ExecuteQuery(Set.Client(client.Name, 
-                                        client.CPF, 
-                                        client.Email, 
-                                        client.Password,
-                                        client.Type,
-                                        client.Balance));
+            dbl.ExecuteQuery(Set.Client(client.Name,
+                    client.CPF,
+                    client.Email,
+                    client.Password,
+                    client.Type,
+                    client.Balance));
             System.out.println(GetByID.Client(client.Email, "email"));
             client.ID = +1;
             dbl.CloseDatabase();
@@ -131,9 +142,10 @@ public class ClientController {
         ;
     }
 
-    public void clientList() {
+    public void userList() {
         if (client.Name != null && !client.Name.trim().isEmpty()) { 
             JOptionPane.showMessageDialog(null, "Código da conta: " + client.ID + "\n" +
+            // TODO: Verificar possível problema com o get dos IDs
                     "Nome: " + client.Name + "\n" +
                     "CPF: " + Validator.imprimeCPF(client.CPF) + "\n" +
                     "Saldo: R$" + client.Balance + "\n" +
@@ -144,24 +156,7 @@ public class ClientController {
         }
     }
 
-    public void doLogin(int userLoginOption, String loginOptions) {
-        while (userLoginOption != 2) {
-            userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
-                    "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
-            if (userLoginOption == 0)
-                System.exit(0);
-            switch (userLoginOption) {
-                case 1:
-                    userRegister();
-                    break;
-                case 2:
-                    userLogin();
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null,
-                            "Opção Inválida.\nSelecione uma opção do Menu",
-                            "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    public void userConfig() {
+        Config.show();
     }
 }
