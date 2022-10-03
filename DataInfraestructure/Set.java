@@ -9,10 +9,10 @@ public class Set{
     public static String Client(String iNome, String iCPF, String iEmail, String iPassword, String iType, Double iBalance){
         String sql = "INSERT INTO clients (Name, CPF, Email, Password, Type, Balance) "+
                                 "VALUES ('"+iNome+"',"+
-                                       "'"+iCPF+"',"+
-                                       "'"+iEmail+"',"+
-                                       "'"+iPassword+"',"+
-                                       "'"+iType+"',"+
+                                        "'"+iCPF+"',"+
+                                        "'"+iEmail+"',"+
+                                        "'"+iPassword+"',"+
+                                        "'"+iType+"',"+
                                            iBalance+");";
         return sql;
     }

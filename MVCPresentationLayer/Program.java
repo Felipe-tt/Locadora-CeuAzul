@@ -2,28 +2,25 @@ package MVCPresentationLayer;
 import javax.swing.JOptionPane;
 
 import MVCPresentationLayer.Controllers.ClientController;
+import MVCPresentationLayer.Views.StandardWindow;
 
 class Program {
     public static void main(String[] args) {
         
         
         ClientController C = new ClientController();
-        int userLoginOption = 0;
-        String loginOptions = "Escolha uma opção\n\n" +
-                "1 - Registre-se\n" +
-                "2 - Login\n" +
-                "0 - Sair\n\n";
         int userOption = 1;
         String Options = "Programa de Conta Corrente\n\n" +
                 "1 - Depositar Valor\n" +
                 "2 - Sacar Valor\n" +
                 "3 - Consultar Saldo\n" +
                 "4 - Listar Cliente\n" +
-                "5 - Voltar\n" +
+                "5 - Configurações\n" +
+                "6 - Voltar\n" +
                 "0 - Finalizar\n\n" +
                 "Digite a opção desejada:\n";
 
-        C.doLogin(userLoginOption, loginOptions);
+        StandardWindow.show(userOption);
         while (userOption != 0) {
             try {
                 userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options,
@@ -41,10 +38,13 @@ class Program {
                         C.checkBalance();
                         break;
                     case 4:
-                        C.clientList();
+                        C.userList();
                         break;
                     case 5:
-                        C.doLogin(userLoginOption, loginOptions);
+                        C.userConfig();
+                        break;
+                    case 6:
+                        StandardWindow.show(userOption);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,
