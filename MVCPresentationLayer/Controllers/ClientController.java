@@ -145,7 +145,6 @@ public class ClientController {
     public void userList() {
         if (client.Name != null && !client.Name.trim().isEmpty()) { 
             JOptionPane.showMessageDialog(null, "Código da conta: " + client.ID + "\n" +
-            // TODO: Verificar possível problema com o get dos IDs
                     "Nome: " + client.Name + "\n" +
                     "CPF: " + Validator.imprimeCPF(client.CPF) + "\n" +
                     "Saldo: R$" + client.Balance + "\n" +
