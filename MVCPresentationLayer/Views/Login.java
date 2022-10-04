@@ -13,7 +13,7 @@ public class Login {
         JPanel entUsuario = new JPanel();
         entUsuario.add(rotulo);
         entUsuario.add(loginPassword);
-        JOptionPane.showMessageDialog(null, entUsuario, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, entUsuario, "Login", JOptionPane.PLAIN_MESSAGE);
         return String.valueOf(loginPassword.getPassword());
     }
     
