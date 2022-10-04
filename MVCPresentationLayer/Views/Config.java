@@ -10,15 +10,19 @@ public class Config {
         "0 - Voltar\n\n";
         int userProfileOption = 3;
         while (userProfileOption != 0) {
-            userProfileOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options));
+            userProfileOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options, "Alteração", JOptionPane.QUESTION_MESSAGE));
 
-            if (userProfileOption == 0)
             switch (userProfileOption) {
+                case 0:
+                    //Back
                 case 1:
-                    // userRegister();
+                    // NameUpdate();
                     break;
                 case 2:
-                    // userLogin();
+                    // EmailUpdate();
+                    break;
+                case 3:
+                    // PasswordUpdate();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,

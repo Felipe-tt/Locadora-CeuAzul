@@ -10,7 +10,7 @@ public class Set{
         String sql = "INSERT INTO clients (Name, CPF, Email, Password, Type, Balance) "+
                                 "VALUES ('"+iNome+"',"+
                                         "'"+iCPF+"',"+
-                                        "'"+iEmail+"',"+
+                                        "'"+iEmail+"'," +
                                         "'"+iPassword+"',"+
                                         "'"+iType+"',"+
                                            iBalance+");";

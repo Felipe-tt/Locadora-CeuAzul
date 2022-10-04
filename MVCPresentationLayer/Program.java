@@ -2,6 +2,7 @@ package MVCPresentationLayer;
 import javax.swing.JOptionPane;
 
 import MVCPresentationLayer.Controllers.ClientController;
+import MVCPresentationLayer.Views.StandardWindow;
 
 class Program {
     public static void main(String[] args) {
@@ -11,11 +12,11 @@ class Program {
                               "2 - Login\n" +
                               "0 - Sair\n\n";
         int userOption = 1;
-        String Options = "Programa de Conta Corrente\n\n" +
+        String accOptions = "Programa de Conta Corrente\n\n" +
                          "1 - Depositar Valor\n" +
                          "2 - Sacar Valor\n" +
                          "3 - Consultar Saldo\n" +
-                         "4 - Listar Cliente\n" +
+                         "4 - Informações da Conta\n" +
                          "5 - Configurações\n" +
                          "6 - Voltar\n" +
                          "0 - Finalizar\n\n" +
@@ -24,7 +25,7 @@ class Program {
         C.standardWindow(userOption, loginOptions);
         while (userOption != 0) {
             try {
-                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Options));
+                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions));
                 if (userOption == 0)
                     continue;
                 switch (userOption) {
@@ -38,13 +39,13 @@ class Program {
                         C.checkBalance();
                         break;
                     case 4:
-                        C.userList();
+                        C.userInfo();
                         break;
                     case 5:
                         C.userConfig();
                         break;
                     case 6:
-                        C.standardWindow(userOption, Options);
+                        StandardWindow.Show(userOption, loginOptions);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,

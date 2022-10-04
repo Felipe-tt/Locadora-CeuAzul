@@ -37,7 +37,7 @@ public class ClientController {
     public void userLogin() {
         boolean stop = false;   
         while (!stop) {
-            String loginEmail = JOptionPane.showInputDialog("Email do cliente: ");
+            String loginEmail = JOptionPane.showInputDialog(null,"Email do cliente: ", "Login", JOptionPane.QUESTION_MESSAGE);
             client.ID = client.Email.indexOf(loginEmail);
             int ID = GetByID.Client(loginEmail, "email");
             if (ID != -1 && !Validator.isNullOrBlank(loginEmail)) {
@@ -63,12 +63,12 @@ public class ClientController {
             MySqlConnection dbl = new MySqlConnection();
             dbl.OpenDatabase();
             while (!Validator.isFullName(client.Name)) {
-                client.Name = JOptionPane.showInputDialog("Digite seu nome: ");
+                client.Name = JOptionPane.showInputDialog(null,"Digite seu nome: ", "Registro", JOptionPane.QUESTION_MESSAGE);
             }
 
             while (!Validator.isCPF(client.CPF)) {
                 while (true) {
-                    String userCPF = JOptionPane.showInputDialog("Digite seu CPF: ");
+                    String userCPF = JOptionPane.showInputDialog(null, "Digite seu CPF: ", "Registro", JOptionPane.QUESTION_MESSAGE);
                     if (!Verificator.Exists(userCPF, "CPF")) {
                         client.CPF = userCPF;
                         break;
@@ -78,7 +78,7 @@ public class ClientController {
 
             while (!Validator.isEmail(client.Email)) {
                 while (true) {
-                    String userEmail = JOptionPane.showInputDialog("Digite seu Email: ");
+                    String userEmail = JOptionPane.showInputDialog(null, "Digite seu Email: ", "Registro", JOptionPane.QUESTION_MESSAGE);
                     if (!Verificator.Exists(userEmail, "Email")) {
                         client.Email = userEmail;
                         break;
@@ -91,7 +91,7 @@ public class ClientController {
             }
 
             while (!Validator.isType(client.Type)) {
-                client.Type = JOptionPane.showInputDialog("Tipo da Conta: (  Corrente (C) / Poupança (P)  )");
+                client.Type = JOptionPane.showInputDialog(null, "(  Corrente (C) / Poupança (P)  )", "Tipo da Conta", JOptionPane.QUESTION_MESSAGE);
             }
             client.Type = Validator.toType(client.Type);
             dbl.ExecuteQuery(Set.Client(client.Name,
@@ -141,7 +141,7 @@ public class ClientController {
         ;
     }
 
-    public void userList() {
+    public void userInfo() {
         if (client.Name != null && !client.Name.trim().isEmpty()) { 
             JOptionPane.showMessageDialog(null, "Código da conta: " + client.ID + "\n" +
                     "Nome: " + client.Name + "\n" +
