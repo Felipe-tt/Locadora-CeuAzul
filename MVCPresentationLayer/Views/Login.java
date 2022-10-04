@@ -16,5 +16,4 @@ public class Login {
         JOptionPane.showMessageDialog(null, entUsuario, "Login", JOptionPane.PLAIN_MESSAGE);
         return String.valueOf(loginPassword.getPassword());
     }
-    
 }

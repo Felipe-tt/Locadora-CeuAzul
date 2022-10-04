@@ -157,25 +157,4 @@ public class ClientController {
     public void userConfig() {
         Config.show();
     }
-
-    public void standardWindow(int userLoginOption, String loginOptions) {
-        while (userLoginOption != 2) {
-            userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
-                    "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
-            if (userLoginOption == 0)
-                System.exit(0);
-            switch (userLoginOption) {
-                case 1:
-                    userRegister();
-                    break;
-                case 2:
-                    userLogin();
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null,
-                            "Opção Inválida.\nSelecione uma opção do Menu",
-                            "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
 }

@@ -22,7 +22,7 @@ class Program {
                          "0 - Finalizar\n\n" +
                          "Digite a opção desejada:\n";
 
-        C.standardWindow(userOption, loginOptions);
+        StandardWindow.Show(userOption, loginOptions);
         while (userOption != 0) {
             try {
                 userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions));
