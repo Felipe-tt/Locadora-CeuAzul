@@ -3,12 +3,10 @@ package MVCPresentationLayer;
 import javax.swing.JOptionPane;
 
 import MVCPresentationLayer.Controllers.ClientController;
-import MVCPresentationLayer.Views.StandardWindow;
 
 class Program {
     public static void main(String[] args) {
         ClientController C = new ClientController();
-        StandardWindow SW = new StandardWindow();
         String loginOptions = "Escolha uma opção\n\n" +
                 "1 - Registre-se\n" +
                 "2 - Login\n" +
@@ -24,7 +22,7 @@ class Program {
                 "0 - Finalizar\n\n" +
                 "Digite a opção desejada:\n";
 
-        SW.Show(userOption, loginOptions);
+        ClientController.showIndex(userOption, loginOptions);
         while (userOption != 0) {
             try {
                 userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions));
@@ -47,7 +45,7 @@ class Program {
                         C.userConfig();
                         break;
                     case 6:
-                        SW.Show(userOption, loginOptions);
+                        ClientController.showIndex(userOption, loginOptions);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,
