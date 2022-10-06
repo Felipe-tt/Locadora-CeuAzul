@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 public class Login {
-    public static String show(){
+    public static String Show(){
         JPasswordField loginPassword = new JPasswordField(10);
         loginPassword.setEchoChar('*');
         JLabel rotulo = new JLabel("Entre com a senha:");

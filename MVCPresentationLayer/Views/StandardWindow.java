@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import MVCPresentationLayer.Controllers.ClientController;
 
 public class StandardWindow {
-    public static void Show(int userLoginOption, String loginOptions) {
+    public void Show(int userLoginOption, String loginOptions) {
         ClientController C = new ClientController();
         while (userLoginOption != 2) {
             userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
@@ -25,5 +25,6 @@ public class StandardWindow {
                             "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
         }
+    
     }
 }
