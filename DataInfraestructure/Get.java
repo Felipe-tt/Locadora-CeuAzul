@@ -21,7 +21,7 @@ public class Get{
     }
 
     public static String Row(String Column, int ID){
-        return Get.doQuery("SELECT "+Column+" FROM clients WHERE ID = ", Column, ID);
+        return Get.doQuery("SELECT "+Column+" FROM users WHERE ID = ", Column, ID);
     }
 
     public static Double BalanceRow(String Column, int ID){
@@ -29,7 +29,7 @@ public class Get{
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
-            rs = st.executeQuery("SELECT "+Column+" FROM clients WHERE ID = "+ID+"");
+            rs = st.executeQuery("SELECT "+Column+" FROM users WHERE ID = "+ID+"");
             if(rs.next()){
                 Double Balance = rs.getDouble("Balance");
                 return Balance;

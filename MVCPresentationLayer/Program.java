@@ -1,4 +1,5 @@
 package MVCPresentationLayer;
+
 import javax.swing.JOptionPane;
 
 import MVCPresentationLayer.Controllers.ClientController;
@@ -7,22 +8,23 @@ import MVCPresentationLayer.Views.StandardWindow;
 class Program {
     public static void main(String[] args) {
         ClientController C = new ClientController();
+        StandardWindow SW = new StandardWindow();
         String loginOptions = "Escolha uma opção\n\n" +
-                              "1 - Registre-se\n" +
-                              "2 - Login\n" +
-                              "0 - Sair\n\n";
+                "1 - Registre-se\n" +
+                "2 - Login\n" +
+                "0 - Sair\n\n";
         int userOption = 1;
         String accOptions = "Programa de Conta Corrente\n\n" +
-                         "1 - Depositar Valor\n" +
-                         "2 - Sacar Valor\n" +
-                         "3 - Consultar Saldo\n" +
-                         "4 - Informações da Conta\n" +
-                         "5 - Configurações\n" +
-                         "6 - Voltar\n" +
-                         "0 - Finalizar\n\n" +
-                         "Digite a opção desejada:\n";
+                "1 - Depositar Valor\n" +
+                "2 - Sacar Valor\n" +
+                "3 - Consultar Saldo\n" +
+                "4 - Informações da Conta\n" +
+                "5 - Configurações\n" +
+                "6 - Voltar\n" +
+                "0 - Finalizar\n\n" +
+                "Digite a opção desejada:\n";
 
-        StandardWindow.Show(userOption, loginOptions);
+        SW.Show(userOption, loginOptions);
         while (userOption != 0) {
             try {
                 userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions));
@@ -45,7 +47,7 @@ class Program {
                         C.userConfig();
                         break;
                     case 6:
-                        StandardWindow.Show(userOption, loginOptions);
+                        SW.Show(userOption, loginOptions);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,
@@ -54,7 +56,7 @@ class Program {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
-                        "Algo deu errado.."+ex,
+                        "Algo deu errado.." + ex,
                         "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
         }

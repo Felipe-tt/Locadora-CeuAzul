@@ -11,7 +11,7 @@ public class GetByID{
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
         Statement st = conn.createStatement();
         java.sql.ResultSet rs;
-        rs = st.executeQuery("SELECT ID FROM clients WHERE clients."+Column+"='"+iVariable+"'");
+        rs = st.executeQuery("SELECT ID FROM users WHERE users."+Column+"='"+iVariable+"'");
         if(rs.next()){
             int userid = rs.getInt("ID");
             return userid;

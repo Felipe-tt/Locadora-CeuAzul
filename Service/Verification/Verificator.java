@@ -22,7 +22,7 @@ public class Verificator {
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
             rs = st.executeQuery(
-                    "SELECT " + ColumnName + " FROM clients WHERE clients." + ColumnName + " = '" + Entity + "'");
+                    "SELECT " + ColumnName + " FROM users WHERE users." + ColumnName + " = '" + Entity + "'");
             if (rs.next()) {
                 String rsEntity = rs.getString("" + ColumnName + "");
                 // ArrayList<String> Array = (ArrayList<String>) ((ResultSet)
@@ -45,7 +45,7 @@ public class Verificator {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
-            rs = st.executeQuery("SELECT PASSWORD FROM clients WHERE clients.ID = " + ID + "");
+            rs = st.executeQuery("SELECT PASSWORD FROM users WHERE users.ID = " + ID + "");
             rs.next();
             String rsPassword = rs.getString("Password");
             if (rsPassword.equals(Password)) {
