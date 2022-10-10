@@ -1,6 +1,6 @@
 package Domain;
 
-public class Client {
+public class User {
     public int ID;
     public String Name = "";
     public String CPF = "";

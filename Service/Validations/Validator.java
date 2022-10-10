@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
-import MVCPresentationLayer.Views.Login;
+import MVCPresentationLayer.Views.UserLogin;
 
 public class Validator {
     public static boolean isNullOrBlank(String param) {
@@ -49,7 +49,7 @@ public class Validator {
         if (matcher.matches()) {
             return matcher.matches();
         } else {
-            Login.Show();
+            UserLogin.Show();
             return false;
         }
     }

@@ -2,11 +2,13 @@ package MVCPresentationLayer;
 
 import javax.swing.JOptionPane;
 
-import MVCPresentationLayer.Controllers.ClientController;
+import Domain.User;
+import MVCPresentationLayer.Controllers.UserController;
 
 class Program {
     public static void main(String[] args) {
-        ClientController C = new ClientController();
+        UserController U = new UserController();
+        User u = new User();
         String loginOptions = "Escolha uma opção\n\n" +
                 "1 - Registre-se\n" +
                 "2 - Login\n" +
@@ -22,30 +24,30 @@ class Program {
                 "0 - Finalizar\n\n" +
                 "Digite a opção desejada:\n";
 
-        ClientController.showIndex(userOption, loginOptions);
+        UserController.showIndex(userOption, loginOptions, U);
         while (userOption != 0) {
             try {
-                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions));
+                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, accOptions, "Bem-vindo(a) "+U.getUser("Name")+"!", JOptionPane.QUESTION_MESSAGE));
                 if (userOption == 0)
                     continue;
                 switch (userOption) {
                     case 1:
-                        C.userDeposit();
+                        U.userDeposit();
                         break;
                     case 2:
-                        C.userWithdraw();
+                        U.userWithdraw();
                         break;
                     case 3:
-                        C.checkBalance();
+                        U.checkBalance();
                         break;
                     case 4:
-                        C.userInfo();
+                        U.userInfo();
                         break;
                     case 5:
-                        C.userConfig();
+                        U.userConfig();
                         break;
                     case 6:
-                        ClientController.showIndex(userOption, loginOptions);
+                        UserController.showIndex(userOption, loginOptions, U);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null,

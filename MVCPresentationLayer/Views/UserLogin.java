@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-public class Login {
+public class UserLogin {
     public static String Show(){
         JPasswordField loginPassword = new JPasswordField(10);
         loginPassword.setEchoChar('*');

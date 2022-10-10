@@ -1,49 +1,69 @@
 package MVCPresentationLayer.Controllers;
 
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
 import DataInfraestructure.Get;
 import DataInfraestructure.GetByID;
 import DataInfraestructure.Set;
-import Domain.Client;
-import MVCPresentationLayer.Views.Config;
-import MVCPresentationLayer.Views.Login;
+import Domain.User;
+import MVCPresentationLayer.Views.UserConfig;
+import MVCPresentationLayer.Views.UserLogin;
 import DataInfraestructure.MySqlConnection;
 import Service.Validations.*;
 import Service.Verification.Verificator;
 
-public class ClientController {
-    Client client = new Client();
+public class UserController {
+    User user = new User();
 
-    public void setVariables(int ID) {
-        client.Name = Get.Row("Name", ID);
-        client.CPF = Get.Row("CPF", ID);
-        client.Email = Get.Row("Email", ID);
-        client.Password = Get.Row("Password", ID);
-        client.Type = Get.Row("Type", ID);
-        client.Balance = Get.BalanceRow("Balance", ID);
-        client.ID = ID;
+    private void setVariables(int ID) {
+        user.Name = Get.Row("Name", ID);
+        user.CPF = Get.Row("CPF", ID);
+        user.Email = Get.Row("Email", ID);
+        user.Password = Get.Row("Password", ID);
+        user.Type = Get.Row("Type", ID);
+        user.Balance = Get.BalanceRow("Balance", ID);
+        user.ID = ID;
     }
 
-    public void resetVariables() {
-        client.Name = "";
-        client.CPF = "";
-        client.Email = "";
-        client.Password = "";
-        client.Type = "";
-        client.Balance = 0.0;
+    public String getUser(String choose){
+        if(choose == "Name"){
+            return user.Name;
+        }
+        else if(choose == "CPF"){
+            return user.CPF;
+        }
+        else if(choose == "Email"){
+            return user.Email;
+        }
+        else if(choose == "Type"){
+            return user.Type;
+        }
+        return "";
     }
 
-    public void userLogin() {
+    // private void resetVariables() {
+    // user.Name = "";
+    // user.CPF = "";
+    // user.Email = "";
+    // user.Password = "";
+    // user.Type = "";
+    // user.Balance = 0.0;
+    // }
+
+    void userLogin() {
         boolean stop = false;
         while (!stop) {
             String loginEmail = JOptionPane.showInputDialog(null, "Email do cliente: ", "Login",
                     JOptionPane.QUESTION_MESSAGE);
-            client.ID = client.Email.indexOf(loginEmail);
+            user.ID = user.Email.indexOf(loginEmail);
             int ID = GetByID.Client(loginEmail, "email");
             if (ID != -1 && !Validator.isNullOrBlank(loginEmail)) {
                 while (true) {
-                    if (Verificator.Password(Login.Show(), ID)) {
+                    if (Verificator.Password(UserLogin.Show(), ID)) {
+                        setVariables(ID);
                         stop = true;
                         break;
                     } else {
@@ -58,54 +78,54 @@ public class ClientController {
         }
     }
 
-    public void userRegister() {
+    private void userRegister() {
         try {
             MySqlConnection dbl = new MySqlConnection();
             dbl.OpenDatabase();
-            while (!Validator.isFullName(client.Name)) {
-                client.Name = JOptionPane.showInputDialog(null, "Digite seu nome: ", "Registro",
+            while (!Validator.isFullName(user.Name)) {
+                user.Name = JOptionPane.showInputDialog(null, "Digite seu nome: ", "Registro",
                         JOptionPane.QUESTION_MESSAGE);
             }
 
-            while (!Validator.isCPF(client.CPF)) {
+            while (!Validator.isCPF(user.CPF)) {
                 while (true) {
                     String userCPF = JOptionPane.showInputDialog(null, "Digite seu CPF: ", "Registro",
                             JOptionPane.QUESTION_MESSAGE);
                     if (!Verificator.Exists(userCPF, "CPF")) {
-                        client.CPF = userCPF;
+                        user.CPF = userCPF;
                         break;
                     }
                 }
             }
 
-            while (!Validator.isEmail(client.Email)) {
+            while (!Validator.isEmail(user.Email)) {
                 while (true) {
                     String userEmail = JOptionPane.showInputDialog(null, "Digite seu Email: ", "Registro",
                             JOptionPane.QUESTION_MESSAGE);
                     if (!Verificator.Exists(userEmail, "Email")) {
-                        client.Email = userEmail;
+                        user.Email = userEmail;
                         break;
                     }
                 }
             }
 
-            while (!Validator.isPassword(client.Password)) {
-                client.Password = Login.Show();
+            while (!Validator.isPassword(user.Password)) {
+                user.Password = UserLogin.Show();
             }
 
-            while (!Validator.isType(client.Type)) {
-                client.Type = JOptionPane.showInputDialog(null, "(  Corrente (C) / Poupança (P)  )", "Tipo da Conta",
+            while (!Validator.isType(user.Type)) {
+                user.Type = JOptionPane.showInputDialog(null, "(  Corrente (C) / Poupança (P)  )", "Tipo da Conta",
                         JOptionPane.QUESTION_MESSAGE);
             }
-            client.Type = Validator.toType(client.Type);
-            dbl.ExecuteQuery(Set.Client(client.Name,
-                    client.CPF,
-                    client.Email,
-                    client.Password,
-                    client.Type,
-                    client.Balance));
-            System.out.println(GetByID.Client(client.Email, "email"));
-            client.ID = +1;
+            user.Type = Validator.toType(user.Type);
+            dbl.ExecuteQuery(Set.Client(user.Name,
+                    user.CPF,
+                    user.Email,
+                    user.Password,
+                    user.Type,
+                    user.Balance));
+            System.out.println(GetByID.Client(user.Email, "email"));
+            user.ID = +1;
             dbl.CloseDatabase();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
@@ -116,11 +136,11 @@ public class ClientController {
 
     public void userDeposit() {
         double valor = Double.parseDouble(
-                JOptionPane.showInputDialog("Quanto deseja depositar? (Total: " + client.Balance + ")",
+                JOptionPane.showInputDialog("Quanto deseja depositar? (Total: " + user.Balance + ")",
                         "Insira um valor"));
         if (valor > 0) {
-            client.Balance = client.Balance + valor;
-            Set.Balance(valor, GetByID.Client(client.Email, "email"), "+");
+            user.Balance = user.Balance + valor;
+            Set.Balance(valor, GetByID.Client(user.Email, "email"), "+");
         } else {
             JOptionPane.showMessageDialog(null, "Você não pode depositar um valor menor que zero!", "Erro",
                     JOptionPane.PLAIN_MESSAGE);
@@ -129,37 +149,36 @@ public class ClientController {
 
     public void userWithdraw() {
         double valor = Double.parseDouble(
-                JOptionPane.showInputDialog("Quanto deseja sacar? (Total: R$" + client.Balance + ")",
+                JOptionPane.showInputDialog("Quanto deseja sacar? (Total: R$" + user.Balance + ")",
                         "Insira um valor"));
-        if (client.Balance >= valor && valor > 0) {
-            client.Balance = client.Balance - valor;
-            Set.Balance(valor, GetByID.Client(client.Email, "email"), "-");
+        if (user.Balance >= valor && valor > 0) {
+            user.Balance = user.Balance - valor;
+            Set.Balance(valor, GetByID.Client(user.Email, "email"), "-");
         } else {
             JOptionPane.showMessageDialog(null, "Saldo insuficiente!", "Erro", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
     public void checkBalance() {
-        JOptionPane.showMessageDialog(null, "Seu saldo é de: R$" + client.Balance, "Mensagem",
+        JOptionPane.showMessageDialog(null, "Seu saldo é de: R$" + user.Balance, "Mensagem",
                 JOptionPane.PLAIN_MESSAGE);
         ;
     }
 
     public void userInfo() {
-        if (client.Name != null && !client.Name.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Código da conta: " + client.ID + "\n" +
-                    "Nome: " + client.Name + "\n" +
-                    "CPF: " + Validator.imprimeCPF(client.CPF) + "\n" +
-                    "Saldo: R$" + client.Balance + "\n" +
-                    "Tipo da conta: " + client.Type + "\n");
+        if (user.Name != null && !user.Name.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Código da conta: " + user.ID + "\n" +
+                    "Nome: " + user.Name + "\n" +
+                    "CPF: " + Validator.imprimeCPF(user.CPF) + "\n" +
+                    "Saldo: R$" + user.Balance + "\n" +
+                    "Tipo da conta: " + user.Type + "\n");
         } else {
             JOptionPane.showMessageDialog(null, "Você não possui uma conta!", "Erro", JOptionPane.PLAIN_MESSAGE);
             System.exit(1);
         }
     }
 
-    public static void showIndex(int userLoginOption, String loginOptions) {
-        ClientController C = new ClientController();
+    public static void showIndex(int userLoginOption, String loginOptions, UserController U) {
         while (userLoginOption != 2) {
             userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
                     "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
@@ -167,10 +186,10 @@ public class ClientController {
                 System.exit(0);
             switch (userLoginOption) {
                 case 1:
-                    C.userRegister();
+                    U.userRegister();
                     break;
                 case 2:
-                    C.userLogin();
+                    U.userLogin();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,
@@ -180,9 +199,7 @@ public class ClientController {
         }
     }
 
-    
-
-    public void userConfig() {
-        Config.show();
+    public void userConfig() throws HeadlessException, SQLException {
+        UserConfig.show();
     }
 }
