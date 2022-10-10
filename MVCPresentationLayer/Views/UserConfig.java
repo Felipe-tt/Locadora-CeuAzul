@@ -24,7 +24,7 @@ public class UserConfig {
                 case 0:
                     // Back
                 case 1:
-                    update.Name();
+                    // update.Name();
                     break;
                 case 2:
                     update.Email();

@@ -28,17 +28,14 @@ public class UserController {
         user.ID = ID;
     }
 
-    public String getUser(String choose){
-        if(choose == "Name"){
+    public String getUser(String choose) {
+        if (choose == "Name") {
             return user.Name;
-        }
-        else if(choose == "CPF"){
+        } else if (choose == "CPF") {
             return user.CPF;
-        }
-        else if(choose == "Email"){
+        } else if (choose == "Email") {
             return user.Email;
-        }
-        else if(choose == "Type"){
+        } else if (choose == "Type") {
             return user.Type;
         }
         return "";

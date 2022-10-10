@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 
 public class Get{
-    private static String doQuery(String Query, String Column, int ID){
+    static String doQuery(String Query, String Column, int ID){
     try{
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
         Statement st = conn.createStatement();
