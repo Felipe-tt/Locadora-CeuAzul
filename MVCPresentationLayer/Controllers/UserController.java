@@ -22,21 +22,34 @@ public class UserController {
         user.Name = Get.Row("Name", ID);
         user.CPF = Get.Row("CPF", ID);
         user.Email = Get.Row("Email", ID);
-        user.Password = Get.Row("Password", ID);
+        user.Password = Get.Row("Password", ID);    
         user.Type = Get.Row("Type", ID);
         user.Balance = Get.BalanceRow("Balance", ID);
         user.ID = ID;
     }
 
-    public String getUser(String choose) {
-        if (choose == "Name") {
-            return user.Name;
-        } else if (choose == "CPF") {
-            return user.CPF;
-        } else if (choose == "Email") {
-            return user.Email;
-        } else if (choose == "Type") {
-            return user.Type;
+    public String getsetUser(String getorset, String Entity, String Change) { //change var fica vazia caso seja get
+        if (getorset == "Get"){
+            if (Entity == "Name") {
+                return user.Name;
+            } else if (Entity == "CPF") {
+                return user.CPF;
+            } else if (Entity == "Email") {
+                return user.Email;
+            } else if (Entity == "Type") {
+                return user.Type;
+            }
+        }
+        else if(getorset == "Set"){
+            if (Entity == "Name") {
+                user.Name = Change;
+            } else if (Entity == "CPF") {
+                user.CPF = Change;
+            } else if (Entity == "Email") {
+                user.Email = Change;
+            } else if (Entity == "Type") {
+                user.Type = Change;
+            }
         }
         return "";
     }
@@ -175,7 +188,7 @@ public class UserController {
         }
     }
 
-    public static void showIndex(int userLoginOption, String loginOptions, UserController U) {
+    public void showIndex(int userLoginOption, String loginOptions, UserController U) {
         while (userLoginOption != 2) {
             userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
                     "Conta Corrente", JOptionPane.QUESTION_MESSAGE));

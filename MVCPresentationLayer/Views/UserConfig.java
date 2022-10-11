@@ -19,21 +19,21 @@ public class UserConfig {
         while (userProfileOption != 0) {
             userProfileOption = Integer
                     .parseInt(JOptionPane.showInputDialog(null, Options, "Alteração", JOptionPane.QUESTION_MESSAGE));
-            Update update = new Update();
+            Update u = new Update();
             switch (userProfileOption) {
                 case 0:
-                    // Back
+                    
                 case 1:
-                    // update.Name();
+                    u.User("Name");
                     break;
                 case 2:
-                    update.Email();
+                    u.User("Email");
                     break;
                 case 3:
-                    update.Password();
+                    u.User("Password");
                     break;
                 case 4:
-                    //Delete.Account();
+                    // Delete.Account();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,
