@@ -58,7 +58,7 @@ public class Validator {
         JOptionPane.showMessageDialog(null, "Nome inválido!", "Erro", JOptionPane.PLAIN_MESSAGE);
         return false;
     }
-    public static boolean isFullName(String name) throws SQLException {
+    public static boolean   isFullName(String name) throws SQLException {
         if (isNullOrBlank(name)) {
             return false;
         }

@@ -22,7 +22,7 @@ public class UserConfig {
             Update u = new Update();
             switch (userProfileOption) {
                 case 0:
-                    
+                    return;
                 case 1:
                     u.User("Name");
                     break;

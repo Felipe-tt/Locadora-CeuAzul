@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Service.Validations.Validator;
-import MVCPresentationLayer.Controllers.UserController;
 
 public class Update {
+    Domain.User user = new Domain.User();
     public void SQLUpdate(String Column, String ChangeTo, String OldEntity) {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
@@ -26,8 +26,7 @@ public class Update {
     }
 
     public void User(String Column) throws HeadlessException, SQLException {
-        UserController u = new UserController();
-        String OldUserEntity = u.getsetUser("Get", Column, "");
+        String OldUserEntity = user.getsetUser("Get", Column, "");
         String UserEntity = "";
         if (Column == "Name") {
             while (!Validator.isFullName(UserEntity)) {
@@ -42,7 +41,7 @@ public class Update {
                 UserUpdateQuestion(UserEntity, Column);
             }
         }
-        u.getsetUser("Set", Column, UserEntity);
+        user.getsetUser("Set", Column, UserEntity);
         SQLUpdate(Column, UserEntity, OldUserEntity);
     }
 

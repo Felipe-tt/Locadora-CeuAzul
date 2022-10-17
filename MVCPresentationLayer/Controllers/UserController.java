@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import DataInfraestructure.Get;
 import DataInfraestructure.GetByID;
 import DataInfraestructure.Set;
 import Domain.User;
+import MVCPresentationLayer.Return;
 import MVCPresentationLayer.Views.UserConfig;
 import MVCPresentationLayer.Views.UserLogin;
 import DataInfraestructure.MySqlConnection;
@@ -17,16 +17,6 @@ import Service.Verification.Verificator;
 
 public class UserController {
     User user = new User();
-
-    private void setVariables(int ID) {
-        user.Name = Get.Row("Name", ID);
-        user.CPF = Get.Row("CPF", ID);
-        user.Email = Get.Row("Email", ID);
-        user.Password = Get.Row("Password", ID);    
-        user.Type = Get.Row("Type", ID);
-        user.Balance = Get.BalanceRow("Balance", ID);
-        user.ID = ID;
-    }
 
     public String getsetUser(String getorset, String Entity, String Change) { //change var fica vazia caso seja get
         if (getorset == "Get"){
@@ -63,7 +53,7 @@ public class UserController {
     // user.Balance = 0.0;
     // }
 
-    void userLogin() {
+    private void userLogin() {
         boolean stop = false;
         while (!stop) {
             String loginEmail = JOptionPane.showInputDialog(null, "Email do cliente: ", "Login",
@@ -73,7 +63,7 @@ public class UserController {
             if (ID != -1 && !Validator.isNullOrBlank(loginEmail)) {
                 while (true) {
                     if (Verificator.Password(UserLogin.Show(), ID)) {
-                        setVariables(ID);
+                        user.setVariables(ID);
                         stop = true;
                         break;
                     } else {
@@ -188,7 +178,7 @@ public class UserController {
         }
     }
 
-    public void showIndex(int userLoginOption, String loginOptions, UserController U) {
+    public void showIndex(int userLoginOption, String loginOptions) {
         while (userLoginOption != 2) {
             userLoginOption = Integer.parseInt(JOptionPane.showInputDialog(null, loginOptions,
                     "Conta Corrente", JOptionPane.QUESTION_MESSAGE));
@@ -196,10 +186,10 @@ public class UserController {
                 System.exit(0);
             switch (userLoginOption) {
                 case 1:
-                    U.userRegister();
+                    userRegister();
                     break;
                 case 2:
-                    U.userLogin();
+                    userLogin();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,
@@ -207,6 +197,55 @@ public class UserController {
                             "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    public void ShowUserOptions() {
+        Return Return = new Return();
+        int userOption = 1;
+        while (userOption != 0) {
+            try {
+                userOption = Integer.parseInt(JOptionPane.showInputDialog(null, Return.AccOptions(),
+                        "Bem-vindo(a) " + getsetUser("Get", "Name", "") + "!", JOptionPane.QUESTION_MESSAGE));
+                if (userOption == 0)
+                    continue;
+                switch (userOption) {
+                    case 1:
+                        userDeposit();
+                        break;
+                    case 2:
+                        userWithdraw();
+                        break;
+                    case 3:
+                        checkBalance();
+                        break;
+                    case 4:
+                        userInfo();
+                        break;
+                    case 5:
+                        userConfig();
+                        break;
+                    case 6:
+                        showIndex(userOption, Return.LoginOptions());
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null,
+                                "Opção Inválida.\nSelecione uma opção do Menu",
+                                "ERRO!", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Algo deu errado.." + ex,
+                        "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        System.out.println("# Fim do Programa #");
+    }
+
+    public void LoadOptions(){
+        int userOption = 1;
+        Return Return = new Return();
+        showIndex(userOption, Return.LoginOptions());
+        ShowUserOptions(); 
     }
 
     public void userConfig() throws HeadlessException, SQLException {
