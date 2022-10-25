@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class Get{
     static String doQuery(String Query, String Column, int ID){
     try{
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
         Statement st = conn.createStatement();
         java.sql.ResultSet rs;
         rs = st.executeQuery(""+Query+""+ID+"");
@@ -26,7 +26,7 @@ public class Get{
 
     public static Double BalanceRow(String Column, int ID){
         try{
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
             rs = st.executeQuery("SELECT "+Column+" FROM users WHERE ID = "+ID+"");

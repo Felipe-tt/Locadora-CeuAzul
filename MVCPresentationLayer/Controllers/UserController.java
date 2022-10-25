@@ -27,7 +27,7 @@ public class UserController {
             } else if (Entity == "Email") {
                 return user.Email;
             } else if (Entity == "Type") {
-                return user.Type;
+                return user.AccountType;
             }
         }
         else if(getorset == "Set"){
@@ -38,7 +38,7 @@ public class UserController {
             } else if (Entity == "Email") {
                 user.Email = Change;
             } else if (Entity == "Type") {
-                user.Type = Change;
+                user.AccountType = Change;
             }
         }
         return "";
@@ -113,16 +113,16 @@ public class UserController {
                 user.Password = UserLogin.Show();
             }
 
-            while (!Validator.isType(user.Type)) {
-                user.Type = JOptionPane.showInputDialog(null, "(  Corrente (C) / Poupança (P)  )", "Tipo da Conta",
+            while (!Validator.isType(user.AccountType)) {
+                user.AccountType = JOptionPane.showInputDialog(null, "(  Corrente (C) / Poupança (P)  )", "Tipo da Conta",
                         JOptionPane.QUESTION_MESSAGE);
             }
-            user.Type = Validator.toType(user.Type);
+            user.AccountType = Validator.toType(user.AccountType);
             dbl.ExecuteQuery(Set.Client(user.Name,
                     user.CPF,
                     user.Email,
                     user.Password,
-                    user.Type,
+                    user.AccountType,
                     user.Balance));
             System.out.println(GetByID.Client(user.Email, "email"));
             user.ID = +1;
@@ -171,7 +171,7 @@ public class UserController {
                     "Nome: " + user.Name + "\n" +
                     "CPF: " + Validator.imprimeCPF(user.CPF) + "\n" +
                     "Saldo: R$" + user.Balance + "\n" +
-                    "Tipo da conta: " + user.Type + "\n");
+                    "Tipo da conta: " + user.AccountType + "\n");
         } else {
             JOptionPane.showMessageDialog(null, "Você não possui uma conta!", "Erro", JOptionPane.PLAIN_MESSAGE);
             System.exit(1);

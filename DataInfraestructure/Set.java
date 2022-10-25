@@ -19,7 +19,7 @@ public class Set{
 
     public static void Balance(Double Value, Integer ID, String MoreOrLess){
         try{
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
         Statement st = conn.createStatement();
         st.executeUpdate("UPDATE users SET Balance = Balance "+MoreOrLess+" "+Value+" WHERE ID = "+ID+"");
         }catch(SQLException ex) { System.out.println(ex);}

@@ -1,5 +1,6 @@
 package Domain;
 
+import Domain.Enum.PaymentType;
 import DataInfraestructure.Get;
 
 public class User {
@@ -8,21 +9,22 @@ public class User {
     public String CPF = "";
     public String Email = "";
     public String Password = "";
-    public String Type = "";
+    public PaymentType PaymentType;
+    public String AccountType = "";
     public Double Balance = 0.0;
 
     public void setVariables(int ID) {
         Name = Get.Row("Name", ID);
         CPF = Get.Row("CPF", ID);
         Email = Get.Row("Email", ID);
-        Password = Get.Row("Password", ID);    
-        Type = Get.Row("Type", ID);
+        Password = Get.Row("Password", ID);
+        AccountType = Get.Row("Type", ID);
         Balance = Get.BalanceRow("Balance", ID);
         this.ID = ID;
     }
 
-    public String getsetUser(String getorset, String Entity, String Change) { //change var fica vazia caso seja get
-        if (getorset == "Get"){
+    public String getsetUser(String getorset, String Entity, String Change) { // change var fica vazia caso seja get
+        if (getorset == "Get") {
             if (Entity == "Name") {
                 return Name;
             } else if (Entity == "CPF") {
@@ -30,10 +32,9 @@ public class User {
             } else if (Entity == "Email") {
                 return Email;
             } else if (Entity == "Type") {
-                return Type;
+                return AccountType;
             }
-        }
-        else if(getorset == "Set"){
+        } else if (getorset == "Set") {
             if (Entity == "Name") {
                 Name = Change;
             } else if (Entity == "CPF") {
@@ -41,7 +42,7 @@ public class User {
             } else if (Entity == "Email") {
                 Email = Change;
             } else if (Entity == "Type") {
-                Type = Change;
+                AccountType = Change;
             }
         }
         return "";

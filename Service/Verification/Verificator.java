@@ -18,7 +18,7 @@ public class Verificator {
         // return false;
         // }
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
             rs = st.executeQuery(
@@ -42,7 +42,7 @@ public class Verificator {
 
     public static boolean Password(String Password, int ID) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
             Statement st = conn.createStatement();
             java.sql.ResultSet rs;
             rs = st.executeQuery("SELECT PASSWORD FROM users WHERE users.ID = " + ID + "");

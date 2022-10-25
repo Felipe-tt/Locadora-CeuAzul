@@ -12,7 +12,7 @@ public class Update {
     Domain.User user = new Domain.User();
     public void SQLUpdate(String Column, String ChangeTo, String OldEntity) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ceuazul");
             Statement st = conn.createStatement();
             st.executeUpdate("UPDATE users SET " + Column + " = '" + ChangeTo + "'' WHERE " + Column + " = '" + OldEntity + "'");
         } catch (SQLException ex) {

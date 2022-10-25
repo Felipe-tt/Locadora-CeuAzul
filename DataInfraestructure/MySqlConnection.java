@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MySqlConnection {
     public static String URL =
-        "jdbc:mysql://localhost:3306/bank";
+        "jdbc:mysql://localhost:3306/ceuazul";
 
     private Connection dbconn = null;
     private java.sql.Statement sqlmgr = null;
